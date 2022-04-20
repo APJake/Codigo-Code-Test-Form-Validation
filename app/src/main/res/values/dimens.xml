@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="text_smaller">10sp</dimen>
+    <dimen name="text_small">12sp</dimen>
+    <dimen name="text_regular">14sp</dimen>
+    <dimen name="text_regular_2x">17sp</dimen>
+    <dimen name="text_regular_3x">20sp</dimen>
+    <dimen name="text_heading_1x">24sp</dimen>
+    <dimen name="text_heading_2x">32sp</dimen>
+    <dimen name="text_heading_3x">36sp</dimen>
+    <dimen name="text_big">40sp</dimen>
+    <dimen name="text_big_2x">60sp</dimen>
+    <dimen name="text_big_3x">80sp</dimen>
+
+    <dimen name="icon_size_small">27dp</dimen>
+    <dimen name="icon_size">35dp</dimen>
+
+    <dimen name="banner_session_height">200dp</dimen>
+    <dimen name="guitar_margin_top">103dp</dimen>
+
+    <dimen name="switch_size">80dp</dimen>
+
+    <dimen name="guitar_width">110dp</dimen>
+    <dimen name="guitar_height">160dp</dimen>
+</resources>

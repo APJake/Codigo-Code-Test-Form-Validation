@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment"
+    >
+
+    <ImageView
+        android:id="@+id/ivBgPoster"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:src="@drawable/welcome"
+        android:contentDescription="@string/background_image" />
+
+    <ImageView
+        android:id="@+id/ivBgCloud"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/clouds"
+        android:contentDescription="@string/background_image" />
+
+    <ImageButton
+        android:id="@+id/ibClose"
+        android:layout_width="@dimen/icon_size_small"
+        android:layout_height="@dimen/icon_size_small"
+        android:background="@drawable/ic_close"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/text"
+        android:contentDescription="@string/close" />
+
+    <TextView
+        android:id="@+id/tv_welcome_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcome_title"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_big"
+        android:textStyle="bold"
+        android:layout_marginStart="20dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tv_signup_description" />
+
+    <TextView
+        android:id="@+id/tv_signup_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="@string/signup_description"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_regular_2x"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/ll_signup_buttons" />
+
+    <LinearLayout
+        android:id="@+id/ll_signup_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:padding="20dp"
+        >
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLoginFacebook"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/login_with_facebook"
+            android:paddingEnd="10dp"
+            android:paddingStart="50dp"
+            android:textColor="@color/on_primary"
+            android:drawableRight="@drawable/facebook"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_regular"
+            android:drawableTint="@color/background"
+            android:background="@drawable/bg_button"
+            android:layout_marginBottom="10dp"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnLoginEmail"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/login_with_email"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/on_primary"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_regular"
+            android:drawableTint="@color/background"
+            android:background="@drawable/bg_button"
+            android:layout_marginBottom="10dp"
+            />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnCreateNewAccount"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:text="@string/create_new_account"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="10dp"
+            android:textColor="@color/on_secondary"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_regular"
+            android:drawableTint="@color/background"
+            android:background="@drawable/bg_button_gradient"
+            />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
