@@ -15,4 +15,26 @@
 
         <item name="fontFamily">@font/chivo_regular</item>
     </style>
+    <style name= "AppTheme" parent= "Theme.CodeTestStateManagement" >
+        <item name= "android:textViewStyle" > @style/ChivoTextViewStyle </item>
+        <item name= "android:editTextStyle" > @style/ChivoEditTextStyle </item>
+        <item name= "android:imageButtonStyle" > @style/ChivoImageButtonStyle </item>
+        <item name= "android:radioButtonStyle" > @style/ChivoRadioButtonStyle </item>
+        <item name= "android:buttonStyle" > @style/ChivoButtonStyle </item>
+    </style>
+    <style name= "ChivoTextViewStyle" parent= "android:Widget.TextView" >
+        <item name= "android:fontFamily">@font/chivo</item>
+    </style>
+    <style name= "ChivoEditTextStyle" parent= "android:Widget.EditText" >
+        <item name= "android:fontFamily">@font/chivo</item>
+    </style>
+    <style name= "ChivoImageButtonStyle" parent= "android:Widget.ImageButton" >
+        <item name= "android:fontFamily">@font/chivo</item>
+    </style>
+    <style name= "ChivoRadioButtonStyle" parent= "android:Widget.CompoundButton.RadioButton" >
+        <item name= "android:fontFamily">@font/chivo</item>
+    </style>
+    <style name= "ChivoButtonStyle" parent= "android:Widget.Button" >
+        <item name= "android:fontFamily">@font/chivo</item>
+    </style>
 </resources>
