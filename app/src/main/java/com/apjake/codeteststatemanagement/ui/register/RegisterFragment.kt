@@ -1,20 +1,29 @@
 package com.apjake.codeteststatemanagement.ui.register
 
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.apjake.codeteststatemanagement.databinding.FragmentRegisterBinding
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.CountryChanged
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.DateChanged
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.EmailChanged
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.FirstNameChanged
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.LastNameChanged
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.NationalityChanged
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.PhoneNoChanged
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.PhonePrefixChanged
+import com.apjake.codeteststatemanagement.ui.register.RegistrationEvent.Submit
 import com.apjake.codeteststatemanagement.util.UseMe
-import com.apjake.codeteststatemanagement.util.dateString
 import com.apjake.codeteststatemanagement.util.getUserPhonePrefix
 import com.google.android.material.datepicker.MaterialDatePicker
+import kotlinx.coroutines.flow.collectLatest
 
 class RegisterFragment : Fragment() {
     private lateinit var binding: FragmentRegisterBinding
@@ -23,16 +32,15 @@ class RegisterFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
         binding = FragmentRegisterBinding.inflate(inflater, container, false)
         viewModel = ViewModelProvider(this)[RegisterViewModel::class.java]
-        binding.lifecycleOwner = this
-        binding.viewModel = viewModel
 
         init()
         handleListeners()
-        handleFormValidation()
+        observeState()
+        observeEvent()
 
         return binding.root
     }
@@ -43,9 +51,17 @@ class RegisterFragment : Fragment() {
             .setSelection(UseMe.nowTimestamp())
             .build()
         datePicker.addOnPositiveButtonClickListener {
-            viewModel.date.postValue(it.dateString())
+            viewModel.onEvent(DateChanged(it))
         }
-        viewModel.phonePrefix.postValue(requireContext().getUserPhonePrefix())
+        binding.edtPhonePrefix.setText(requireContext().getUserPhonePrefix())
+    }
+
+    private fun observeEvent() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.event.collectLatest {
+                Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun handleListeners() {
@@ -55,49 +71,78 @@ class RegisterFragment : Fragment() {
         binding.btnClose.setOnClickListener {
             findNavController().popBackStack()
         }
+        binding.btnCreateNewAccount.setOnClickListener {
+            viewModel.onEvent(Submit)
+        }
+
+        binding.edtFirstName.addTextChangedListener {
+            viewModel.onEvent(FirstNameChanged(it.toString()))
+        }
+        binding.edtLastName.addTextChangedListener {
+            viewModel.onEvent(LastNameChanged(it.toString()))
+        }
+        binding.edtEmail.addTextChangedListener {
+            viewModel.onEvent(EmailChanged(it.toString()))
+        }
+        binding.edtNationality.addTextChangedListener {
+            viewModel.onEvent(NationalityChanged(it.toString()))
+        }
+        binding.edtCountry.addTextChangedListener {
+            viewModel.onEvent(CountryChanged(it.toString()))
+        }
+        binding.edtPhonePrefix.addTextChangedListener {
+            viewModel.onEvent(PhonePrefixChanged(it.toString()))
+        }
+        binding.edtPhoneNo.addTextChangedListener {
+            viewModel.onEvent(PhoneNoChanged(it.toString()))
+        }
     }
 
     private fun showDatePicker() {
-        datePicker.show(parentFragmentManager,"MATERIAL_DATE_PICKER")
+        datePicker.show(parentFragmentManager, "MATERIAL_DATE_PICKER")
     }
 
-    private fun handleFormValidation() {
-        viewModel.isLoginFormValid.observe(this){
-            if(it == true){
-                Toast.makeText(requireContext(), "Success", Toast.LENGTH_SHORT).show()
+    private fun observeState() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.state.collectLatest { state ->
+                with(state) {
+                    binding.edtDate.setText(date)
+
+                    binding.edtPhoneNo.error = phoneNumberError
+                    binding.edtPhonePrefix.error = phonePrefixError
+                    binding.edtCountry.error = countryError
+                    binding.edtNationality.error = nationalityError
+                    binding.edtDate.error = dateError
+                    binding.edtEmail.error = emailError
+                    binding.edtLastName.error = lastNameError
+                    binding.edtFirstName.error = firstNameError
+
+                    phoneNumberError?.let {
+                        binding.edtPhoneNo.requestFocus()
+                    }
+                    phonePrefixError?.let {
+                        binding.edtPhonePrefix.requestFocus()
+                    }
+                    countryError?.let {
+                        binding.edtCountry.requestFocus()
+                    }
+                    nationalityError?.let {
+                        binding.edtNationality.requestFocus()
+                    }
+                    dateError?.let {
+                        binding.edtDate.requestFocus()
+                    }
+                    emailError?.let {
+                        binding.edtEmail.requestFocus()
+                    }
+                    lastNameError?.let {
+                        binding.edtLastName.requestFocus()
+                    }
+                    firstNameError?.let {
+                        binding.edtFirstName.requestFocus()
+                    }
+                }
             }
-        }
-        viewModel.firstNameValidator.error.observe(this){
-            binding.edtFirstName.error = it
-            binding.edtFirstName.requestFocus()
-        }
-        viewModel.lastNameValidator.error.observe(this){
-            binding.edtLastName.error = it
-            binding.edtLastName.requestFocus()
-        }
-        viewModel.emailValidator.error.observe(this){
-            binding.edtEmail.error = it
-            binding.edtEmail.requestFocus()
-        }
-        viewModel.dateValidator.error.observe(this){
-            binding.edtDate.error = it
-            binding.edtDate.requestFocus()
-        }
-        viewModel.nationalityValidator.error.observe(this){
-            binding.edtNationality.error = it
-            binding.edtNationality.requestFocus()
-        }
-        viewModel.countryValidator.error.observe(this){
-            binding.edtCountry.error = it
-            binding.edtCountry.requestFocus()
-        }
-        viewModel.phonePrefixValidator.error.observe(this){
-            binding.edtPhonePrefix.error = it
-            binding.edtPhonePrefix.requestFocus()
-        }
-        viewModel.phoneNoValidator.error.observe(this){
-            binding.edtPhoneNo.error = it
-            binding.edtPhoneNo.requestFocus()
         }
     }
 
