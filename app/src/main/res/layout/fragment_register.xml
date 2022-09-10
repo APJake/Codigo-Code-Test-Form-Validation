@@ -3,11 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.register.RegisterFragment">
-    <data>
-        <variable
-            name="viewModel"
-            type="com.apjake.codeteststatemanagement.ui.register.RegisterViewModel" />
-    </data>
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -102,7 +97,6 @@
                     android:textColor="@color/text"
                     android:paddingVertical="15dp"
                     android:inputType="text"
-                    android:text="@={viewModel.firstName}"
                     android:importantForAutofill="no"
                     android:hint="@string/first_name"
                     />
@@ -123,7 +117,6 @@
                     android:textColor="@color/text"
                     android:paddingVertical="15dp"
                     android:inputType="text"
-                    android:text="@={viewModel.lastName}"
                     android:importantForAutofill="no"
                     android:hint="@string/last_name"
                     />
@@ -144,7 +137,6 @@
                     android:textColor="@color/text"
                     android:paddingVertical="15dp"
                     android:inputType="textEmailAddress"
-                    android:text="@={viewModel.email}"
                     android:importantForAutofill="no"
                     android:hint="@string/email_address"
                     />
@@ -176,7 +168,6 @@
                         android:focusable="false"
                         android:importantForAutofill="no"
                         android:hint="@string/dd_mm_yyyy"
-                        android:text="@={viewModel.date}"
                         android:drawableRight="@drawable/dob_icon"
                         />
                     <RadioGroup
@@ -241,7 +232,6 @@
                     android:textColor="@color/text"
                     android:paddingVertical="15dp"
                     android:inputType="text"
-                    android:text="@={viewModel.nationality}"
                     android:importantForAutofill="no"
                     android:hint="@string/nationality"
                     />
@@ -262,7 +252,6 @@
                     android:textColor="@color/text"
                     android:paddingVertical="15dp"
                     android:inputType="text"
-                    android:text="@={viewModel.country}"
                     android:importantForAutofill="no"
                     android:hint="@string/country"
                     />
@@ -292,7 +281,6 @@
                         android:importantForAutofill="no"
                         android:inputType="phone"
                         android:paddingVertical="15dp"
-                        android:text="@={viewModel.phonePrefix}"
                         android:textColor="@color/text" />
 
                     <View
@@ -310,7 +298,6 @@
                         android:importantForAutofill="no"
                         android:inputType="phone"
                         android:paddingVertical="15dp"
-                        android:text="@={viewModel.phoneNo}"
                         android:paddingHorizontal="15dp"
                         android:textColor="@color/text" />
                 </LinearLayout>
@@ -328,7 +315,6 @@
                     android:textSize="@dimen/text_regular"
                     android:drawableTint="@color/background"
                     android:background="@drawable/bg_button_gradient"
-                    android:onClick="@{()->viewModel.validateForm()}"
                     />
 
             </LinearLayout>
